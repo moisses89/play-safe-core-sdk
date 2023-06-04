@@ -1,0 +1,9 @@
+{
+    "RPC_URL": "https://example.com/rpc",
+    "DEPLOYER_ADDRESS_PRIVATE_KEY": "private_key_value",
+    "DEPLOY_SAFE": {
+      "OWNERS": ["owner1", "owner2"],
+      "THRESHOLD": 2,
+      "SALT_NONCE": "salt_nonce_value"
+    }
+}

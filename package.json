@@ -1,0 +1,19 @@
+{
+  "name": "playing-safe-core-sdk",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Moisés ",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@safe-global/api-kit": "^1.1.0",
+    "@safe-global/protocol-kit": "^1.0.1",
+    "@safe-global/safe-core-sdk-types": "^2.0.0",
+    "ethers": "5.7"
+  },
+  "scripts":{
+    "deploy": "tsc && node deploy_safe.js"
+  }
+}
