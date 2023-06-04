@@ -5,6 +5,7 @@ import * as fs from 'fs';
 import * as readline from 'readline';
 import { SafeVersion } from '@safe-global/safe-core-sdk-types'
 
+
 // This file can be used to play around with the Safe Core SDK
 
 interface Config {
@@ -28,6 +29,13 @@ function askSafeVersion(): Promise<string> {
   return new Promise((resolve) => {
     rl.question('Which version do you want deploy? [1.3.0 | 1.2.0 | 1.1.1 | 1.0.0]', (input: string) => {
       resolve(input.trim());
+    });
+  });
+}
+function askFundSafe(): Promise<string> {
+  return new Promise((resolve) => {
+    rl.question('Do you want to send 0.0001 ETH to your safe? y/n ', (input: string) => {
+      resolve(input.trim())
     });
   });
 }
@@ -79,8 +87,18 @@ async function main() {
     saltNonce,
     callback
   })
-
-  console.log('Deployed Safe:', await safe.getAddress())
+  const deployedSafe = await safe.getAddress()
+  console.log('Deployed Safe:', deployedSafe)
+  
+  if (await askFundSafe() == 'y'){
+    const safeAmount = ethers.utils.parseUnits('0.0001', 'ether').toHexString()
+    const transactionParameters = {
+      to: deployedSafe,
+      value: safeAmount
+    }
+    const tx = await deployerSigner.sendTransaction(transactionParameters)
+    console.log("Sended 0.0001 ETH to your safe ", tx.hash)
+  }
 }
 
 main()
